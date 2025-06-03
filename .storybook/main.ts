@@ -5,7 +5,7 @@ const config: StorybookConfig = {
   // Required
   framework: "@storybook/react-vite",
 
-  stories: ["../examples/**/*.mdx", "../examples/**/*.stories.@(ts|tsx|jsx)"],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx|jsx)"],
 
   typescript: {
     reactDocgen: "react-docgen", // or false if you don't need docgen at all

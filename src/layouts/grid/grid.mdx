@@ -1,0 +1,55 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as GridStories from "./grid.stories";
+
+<Meta of={GridStories} />
+
+# Grid
+<Canvas of={GridStories.Complex} />
+
+Our basic grid system is based on a 12 column layout. It is designed to be
+flexible and responsive, and can be used to create a wide variety of layouts.
+This grid uses container queries to allow for more complex layouts, and is
+designed to be used with the `Grid.Item` component.
+
+## Props
+
+An overview of both the props for the `Grid` and `Grid.Item` components.
+
+### `Grid` Properties
+
+- `gap`: Specifies the gap between grid items. This is a value from our spacing system.
+- Breakpoints: The grid also has a number of breakpoints that can be used to change the layout at different screen sizes. These are `smBreakpoint`, `mdBreakpoint`, `lgBreakpoint`, `xlBreakpoint` and `xxlBreakpoint`. By default these will use the values of the [default Tailwind breakpoints](https://tailwindcss.com/docs/responsive-design), but since this grid uses container queries you can alter these to fit any content size.
+
+### `Grid.Item` Properties
+
+The only properties that are available for the `Grid.Item` component are the `initial` and the breakpoint props. These are used to specify the width of the item at different breakpoints.
+Our breakpoints are mobile first, so the `initial` prop will be used for the smallest breakpoint and up, unless a specific breakpoint is set.
+
+- `initial`: number;
+- `sm`: number;
+- `md`: number;
+- `lg`: number;
+- `xl`: number;
+- `xxl`: number;
+
+## Some basic use cases
+
+### Default
+
+By default if you pass no params to the grid or the items, the items will fill the entire width of the grid without any gap, causing them to stack.
+
+<Canvas of={GridStories.Default} />
+
+### Basic
+
+A more basic layout using the grid system
+
+<Canvas of={GridStories.Basic} />
+
+### Complex
+
+A more complex layout using the grid system. This layout uses a combination of fixed widths to create a more complex layout.
+
+<Canvas of={GridStories.Complex} />
+

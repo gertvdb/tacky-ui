@@ -1,5 +1,5 @@
 {
-  "name": "@luwio/template",
+  "name": "@tacky/tacky-ui",
   "version": "0.0.1",
   "description": "Template for all libraries powered by JavaScript",
   "main": "./build/index.js",
@@ -43,20 +43,21 @@
     "@types/jest": "^29.5.13",
     "@types/react": "^19.0",
     "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
-    "tsup": "^8.2.4",
     "prettier": "^3.3.3",
-    "storybook": "^8.5.3"
+    "storybook": "^8.5.3",
+    "ts-jest": "^29.2.5",
+    "tsup": "^8.2.4"
   },
   "peerDependencies": {
     "react": ">= 19"
   },
   "dependencies": {
-    "react": "^19",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
     "@storybook/addon-a11y": "^8.5.3",
     "@storybook/builder-vite": "^8.5.3",
-    "@storybook/theming": "^8.5.3"
+    "@storybook/theming": "^8.5.3",
+    "react": "^19",
+    "styled-components": "^6.1.18",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
