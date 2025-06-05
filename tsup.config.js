@@ -5,6 +5,7 @@
 // This is a configuration file for Tsup, which is used to configure the build process.
 
 import { defineConfig } from 'tsup'
+import { resolve } from 'path'
 
 export default defineConfig([
     {
@@ -27,5 +28,11 @@ export default defineConfig([
         target: ['chrome91', 'firefox90', 'edge91', 'safari15', 'ios15', 'opera77'],
         external: ['react', 'react-dom', 'swiper', 'styled-components'],
         injectStyle: false,
+        esbuildOptions(options) {
+            // Add path aliases to esbuild
+            options.alias = {
+                '@': resolve(__dirname, './src')
+            }
+        },
     },
 ])

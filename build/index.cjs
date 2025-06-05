@@ -1,11 +1,12 @@
 'use strict';
 
-var react = require('react');
+var React3 = require('react');
 var jsxRuntime = require('react/jsx-runtime');
 var styled = require('styled-components');
 
 function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
 
+var React3__default = /*#__PURE__*/_interopDefault(React3);
 var styled__default = /*#__PURE__*/_interopDefault(styled);
 
 var __defProp = Object.defineProperty;
@@ -25,6 +26,7 @@ __name(isCSSGap, "isCSSGap");
 
 // src/layouts/grid/grid.types.ts
 var isNumber = /* @__PURE__ */ __name((value) => typeof value === "number" && !isNaN(value) && isFinite(value), "isNumber");
+var isUndef = /* @__PURE__ */ __name((value) => typeof value === "undefined", "isUndef");
 var ContextGridColumnsDefaults = 12;
 var ContextGridBreakpointsDefaults = {
   xs: "480px",
@@ -55,13 +57,13 @@ var ContextGridGapsDefaults = {
   "3xl": { row: "0", column: "0" },
   "4xl": { row: "0", column: "0" }
 };
-var ContextGrid = react.createContext({
+var ContextGrid = React3.createContext({
   breakpoints: ContextGridBreakpointsDefaults,
   gap: ContextGridGapsDefaults,
   columns: ContextGridColumnsDefaults
 });
 var ContextProviderGrid = /* @__PURE__ */ __name((props) => {
-  const { gap, breakpoints, children } = props;
+  const { gap, breakpoints, columns, children } = props;
   const CssGap = gap ?? {
     initial: "0",
     xs: "0",
@@ -135,7 +137,7 @@ var ContextProviderGrid = /* @__PURE__ */ __name((props) => {
       value: {
         gap: gapConfig,
         breakpoints: ContextGridBreakpointsDefaults,
-        columns: 12
+        columns: isUndef(columns) ? ContextGridColumnsDefaults : columns
       },
       children
     }
@@ -163,13 +165,13 @@ __name(getCssGap, "getCssGap");
 
 // src/layouts/grid/hooks/use-grid.tsx
 var useGrid = /* @__PURE__ */ __name(() => {
-  const context = react.useContext(ContextGrid);
+  const context = React3.useContext(ContextGrid);
   if (context === void 0) {
     throw new Error("useGrid must be used within a ContextGrid item");
   }
   return context;
 }, "useGrid");
-var ContextGridItem = react.createContext({
+var ContextGridItem = React3.createContext({
   span: {
     initial: String(ContextGridColumnsDefaults),
     xs: String(ContextGridColumnsDefaults),
@@ -270,15 +272,14 @@ var ContextProviderGridItem = /* @__PURE__ */ __name((props) => {
     }
   );
 }, "ContextProviderGridItem");
-styled__default.default.div`
+var StyledGridContainer = styled__default.default.div`
   container-type: inline-size;
   container-name: grid;
   width: 100%;
 `;
-styled__default.default.div`
+var StyledGrid = styled__default.default.div`
   display: grid;
-  grid-template-columns: repeat(24, minmax(0, 1fr));
-  align-items: flex-start;
+  grid-template-columns: repeat(${(props) => props.$columns}, minmax(0, 1fr));
   row-gap: ${(props) => props.$gaps.initial.row};
   column-gap: ${(props) => props.$gaps.initial.column};
 
@@ -331,7 +332,7 @@ var StyledGridItem = styled__default.default.div`
     ${(props) => props.$spans.initial};
 
   @container grid (min-width: ${(props) => props.$breakpoints.xs}) {
-    grid-column: span ${(props) => props.$breakpoints.xs} / span
+    grid-column: span ${(props) => props.$spans.xs} / span
       ${(props) => props.$spans.xs};
   }
 
@@ -367,7 +368,7 @@ var StyledGridItem = styled__default.default.div`
   }
 `;
 var useGridItem = /* @__PURE__ */ __name(() => {
-  const context = react.useContext(ContextGridItem);
+  const context = React3.useContext(ContextGridItem);
   if (context === void 0) {
     throw new Error("useGridItem must be used within a ContextGridItem");
   }
@@ -389,11 +390,37 @@ var GridItemContent = /* @__PURE__ */ __name((props) => {
 }, "GridItemContent");
 var Item = /* @__PURE__ */ __name((props) => {
   const { config, children } = props;
-  return /* @__PURE__ */ jsxRuntime.jsx(ContextProviderGridItem, { span: config.span, children: /* @__PURE__ */ jsxRuntime.jsx(GridItemContent, { children }) });
+  return /* @__PURE__ */ jsxRuntime.jsx(ContextProviderGridItem, { span: config ? config.span : void 0, children: /* @__PURE__ */ jsxRuntime.jsx(GridItemContent, { children }) });
 }, "Item");
+var GridContent = /* @__PURE__ */ __name((props) => {
+  const { children } = props;
+  const GridContext = useGrid();
+  const mappedChildren = React3.Children.map(
+    children,
+    (child, index) => /* @__PURE__ */ jsxRuntime.jsx(React3__default.default.Fragment, { children: child }, index)
+  );
+  return /* @__PURE__ */ jsxRuntime.jsx(StyledGridContainer, { children: /* @__PURE__ */ jsxRuntime.jsx(
+    StyledGrid,
+    {
+      $breakpoints: GridContext.breakpoints,
+      $gaps: GridContext.gap,
+      $columns: GridContext.columns,
+      className: "grid",
+      children: mappedChildren
+    }
+  ) });
+}, "GridContent");
 var Grid = /* @__PURE__ */ __name((props) => {
   const { config, children } = props;
-  return /* @__PURE__ */ jsxRuntime.jsx(ContextProviderGrid, { gap: config.gap, breakpoints: config.breakpoints, children });
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    ContextProviderGrid,
+    {
+      gap: config ? config.gap : void 0,
+      breakpoints: config ? config.breakpoints : void 0,
+      columns: config ? config.columns : void 0,
+      children: /* @__PURE__ */ jsxRuntime.jsx(GridContent, { children })
+    }
+  );
 }, "Grid");
 Grid.Item = Item;
 

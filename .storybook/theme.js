@@ -2,7 +2,7 @@ import { create } from "@storybook/theming";
 
 export default create({
   base: "light",
-  brandTitle: "@luwio/hooks",
+  brandTitle: "@tacky-org/tacky-ui",
 
   // Typography
   fontBase: '"Open Sans", sans-serif',

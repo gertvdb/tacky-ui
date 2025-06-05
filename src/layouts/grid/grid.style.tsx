@@ -1,112 +1,116 @@
 import styled from "styled-components";
-import {
-  IContextGridBreakPoints,
-  IContextGridGaps,
-} from "./context.grid";
-import { IContextGridItemSpan } from "./context.grid.item";
+import {IContextGridGap} from "@/layouts/grid/context.grid.gap";
+import {IContextGridBreak} from "@/layouts/grid/context.grid.break";
+import {IContextGridCols} from "@/layouts/grid/context.grid.cols";
+import {IContextGridItemSpan} from "@/layouts/grid/context.grid.item.span";
 
 export const StyledGridContainer = styled.div`
   container-type: inline-size;
   container-name: grid;
+
+  min-width: 0;
+  min-height: 0;
   width: 100%;
+  height: 100%;
 `;
 
 export const StyledGrid = styled.div<{
-  $gaps: IContextGridGaps;
-  $breakpoints: IContextGridBreakPoints;
-  $columns: number;
+  $gaps: IContextGridGap;
+  $breaks: IContextGridBreak;
+  $cols: IContextGridCols;
 }>`
   display: grid;
-  grid-template-columns: repeat(${(props) => props.$columns}, minmax(0, 1fr));
-  align-items: flex-start;
-  row-gap: ${(props) => props.$gaps.initial.row};
-  column-gap: ${(props) => props.$gaps.initial.column};
+  position: relative;
 
-  @container grid (min-width: ${(props) => props.$breakpoints.xs}) {
-    row-gap: ${(props) => props.$gaps.xs.row};
-    column-gap: ${(props) => props.$gaps.xs.column};
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  
+  grid-template-columns: repeat(${(props) => props.$cols.cols}, minmax(0, 1fr));
+  gap: ${(props) => props.$gaps.gap};
+
+  @container grid (min-width: ${(props) => props.$breaks.break_xs}) {
+    gap: ${(props) => props.$gaps.gap_xs};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints.sm}) {
-    row-gap: ${(props) => props.$gaps.sm.row};
-    column-gap: ${(props) => props.$gaps.sm.column};
+  @container grid (min-width: ${(props) => props.$breaks.break_sm}) {
+    gap: ${(props) => props.$gaps.gap_sm};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints.md}) {
-    row-gap: ${(props) => props.$gaps.md.row};
-    column-gap: ${(props) => props.$gaps.md.column};
+  @container grid (min-width: ${(props) => props.$breaks.break_md}) {
+    gap: ${(props) => props.$gaps.gap_md};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints.lg}) {
-    row-gap: ${(props) => props.$gaps.lg.row};
-    column-gap: ${(props) => props.$gaps.lg.column};
+  @container grid (min-width: ${(props) => props.$breaks.break_lg}) {
+    gap: ${(props) => props.$gaps.gap_lg};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints.xl}) {
-    row-gap: ${(props) => props.$gaps.xl.row};
-    column-gap: ${(props) => props.$gaps.xl.column};
+  @container grid (min-width: ${(props) => props.$breaks.break_xl}) {
+    gap: ${(props) => props.$gaps.gap_xl};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints.xxl}) {
-    row-gap: ${(props) => props.$gaps.xxl.row};
-    column-gap: ${(props) => props.$gaps.xxl.column};
+  @container grid (min-width: ${(props) => props.$breaks.break_xxl}) {
+    gap: ${(props) => props.$gaps.gap_xxl};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints["3xl"]}) {
-    row-gap: ${(props) => props.$gaps["3xl"].row};
-    column-gap: ${(props) => props.$gaps["3xl"].column};
+  @container grid (min-width: ${(props) => props.$breaks.break_3xl}) {
+    gap: ${(props) => props.$gaps.gap_3xl};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints["4xl"]}) {
-    row-gap: ${(props) => props.$gaps["4xl"].row};
-    column-gap: ${(props) => props.$gaps["4xl"].column};
+  @container grid (min-width: ${(props) => props.$breaks.break_4xl}) {
+    gap: ${(props) => props.$gaps.gap_4xl};
   }
 `;
 
 export const StyledGridItem = styled.div<{
   $spans: IContextGridItemSpan;
-  $breakpoints: IContextGridBreakPoints;
+  $breaks: IContextGridBreak;
 }>`
-  display: block;
-  min-width: 0;
+  display: flex; // use flex sincs it is the most versatile and popular default
+  position: relative;
+  
+  min-width: 0;  
+  min-height: 0;
   height: 100%;
+  width: 100%;
+  
+  grid-column: span ${(props) => props.$spans.span} / span
+    ${(props) => props.$spans.span};
 
-  grid-column: span ${(props) => props.$spans.initial} / span
-    ${(props) => props.$spans.initial};
-
-  @container grid (min-width: ${(props) => props.$breakpoints.xs}) {
-    grid-column: span ${(props) => props.$spans.xs} / span
-      ${(props) => props.$spans.xs};
-  }
-
-  @container grid (min-width: ${(props) => props.$breakpoints.sm}) {
-    grid-column: span ${(props) => props.$spans.sm} / span
-      ${(props) => props.$spans.sm};
-  }
-  @container grid (min-width: ${(props) => props.$breakpoints.md}) {
-    grid-column: span ${(props) => props.$spans.md} / span
-      ${(props) => props.$spans.md};
-  }
-  @container grid (min-width: ${(props) => props.$breakpoints.lg}) {
-    grid-column: span ${(props) => props.$spans.lg} / span
-      ${(props) => props.$spans.lg};
-  }
-  @container grid (min-width: ${(props) => props.$breakpoints.xl}) {
-    grid-column: span ${(props) => props.$spans.xl} / span
-      ${(props) => props.$spans.xl};
-  }
-  @container grid (min-width: ${(props) => props.$breakpoints.xxl}) {
-    grid-column: span ${(props) => props.$spans.xxl} / span
-      ${(props) => props.$spans.xxl};
+  @container grid (min-width: ${(props) => props.$breaks.break_xs}) {
+    grid-column: span ${(props) => props.$spans.span_xs} / span
+      ${(props) => props.$spans.span_xs};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints["3xl"]}) {
-    grid-column: span ${(props) => props.$spans["3xl"]} / span
-      ${(props) => props.$spans["3xl"]};
+  @container grid (min-width: ${(props) => props.$breaks.break_sm}) {
+    grid-column: span ${(props) => props.$spans.span_sm} / span
+      ${(props) => props.$spans.span_sm};
+  }
+  @container grid (min-width: ${(props) => props.$breaks.break_md}) {
+    grid-column: span ${(props) => props.$spans.span_md} / span
+      ${(props) => props.$spans.span_md};
+  }
+  @container grid (min-width: ${(props) => props.$breaks.break_lg}) {
+    grid-column: span ${(props) => props.$spans.span_lg} / span
+      ${(props) => props.$spans.span_lg};
+  }
+  @container grid (min-width: ${(props) => props.$breaks.break_xl}) {
+    grid-column: span ${(props) => props.$spans.span_xl} / span
+      ${(props) => props.$spans.span_xl};
+  }
+  @container grid (min-width: ${(props) => props.$breaks.break_xxl}) {
+    grid-column: span ${(props) => props.$spans.span_xxl} / span
+      ${(props) => props.$spans.span_xxl};
   }
 
-  @container grid (min-width: ${(props) => props.$breakpoints["4xl"]}) {
-    grid-column: span ${(props) => props.$spans["4xl"]} / span
-      ${(props) => props.$spans["4xl"]};
+  @container grid (min-width: ${(props) => props.$breaks.break_3xl}) {
+    grid-column: span ${(props) => props.$spans.span_3xl} / span
+      ${(props) => props.$spans.span_3xl};
+  }
+
+  @container grid (min-width: ${(props) => props.$breaks.break_4xl}) {
+    grid-column: span ${(props) => props.$spans.span_4xl} / span
+      ${(props) => props.$spans.span_4xl};
   }
 `;

@@ -42,7 +42,7 @@ interface IGridConfig extends PropsWithChildren {
 }
 type IGridConfigPartial = Partial<IGridConfig>;
 interface IGrid extends PropsWithChildren {
-    config: IGridConfigPartial;
+    config?: IGridConfigPartial;
 }
 interface IGridItemSpan {
     initial: number;
@@ -60,7 +60,7 @@ interface IGridItemConfig extends PropsWithChildren {
 }
 type IGridItemConfigPartial = Partial<IGridItemConfig>;
 interface IGridItem extends PropsWithChildren {
-    config: IGridItemConfigPartial;
+    config?: IGridItemConfigPartial;
 }
 
 declare const Grid: {

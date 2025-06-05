@@ -1,19 +1,19 @@
 import React, { PropsWithChildren } from "react";
 import { StyledGridItem } from "./../grid.style";
-import { useGridItem } from "./../hooks/use-grid-item";
-import { useGrid } from "./../hooks/use-grid";
+import { useGridBreak } from "@/layouts/grid/hooks/use-grid-break";
+import {useGridItemSpan} from "@/layouts/grid/hooks/use-grid-item-span";
 
 export const GridItemContent = (props: PropsWithChildren) => {
   const { children } = props;
 
-  const GridContext = useGrid();
-  const GridItemContext = useGridItem();
+  const GridBreakContext = useGridBreak();
+  const GridItemSpanContext = useGridItemSpan();
 
   return (
     <StyledGridItem
-      className={"grid_item"}
-      $spans={GridItemContext.span}
-      $breakpoints={GridContext.breakpoints}
+      className={"grid-item"}
+      $spans={GridItemSpanContext}
+      $breaks={GridBreakContext}
     >
       {children}
     </StyledGridItem>

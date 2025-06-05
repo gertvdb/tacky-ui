@@ -1,20 +1,48 @@
 import { IGrid } from "./grid.types";
 import React from "react";
 import { Item } from "./components/grid.item";
-import { ContextProviderGrid } from "./context.grid";
-import {GridContent} from "./components/grid.content";
+import { GridContent } from "./components/grid.content";
+import { ContextProviderGridGap } from "@/layouts/grid/context.grid.gap";
+import {ContextProviderGridBreak} from "@/layouts/grid/context.grid.break";
+import {ContextProviderGridCols} from "@/layouts/grid/context.grid.cols";
 
 export const Grid = (props: IGrid) => {
-  const { config, children } = props;
+  const {
+    gap, gap_xs, gap_sm, gap_md, gap_lg, gap_xl, gap_xxl, gap_3xl, gap_4xl,
+    break_xs, break_sm, break_md, break_lg, break_xl, break_xxl, break_3xl, break_4xl,
+    cols,
+    children } = props;
 
   return (
-      <ContextProviderGrid
-          gap={config ? config.gap : undefined}
-          breakpoints={config ? config.breakpoints : undefined}
-          columns={config ? config.columns : undefined}
+      <ContextProviderGridCols
+        cols={cols}
       >
-        <GridContent>{children}</GridContent>
-      </ContextProviderGrid>
+        <ContextProviderGridGap
+            gap={gap}
+            gap_xs={gap_xs}
+            gap_sm={gap_sm}
+            gap_md={gap_md}
+            gap_lg={gap_lg}
+            gap_xl={gap_xl}
+            gap_xxl={gap_xxl}
+            gap_3xl={gap_3xl}
+            gap_4xl={gap_4xl}
+        >
+          <ContextProviderGridBreak
+              break_xs={break_xs}
+              break_sm={break_sm}
+              break_md={break_md}
+              break_lg={break_lg}
+              break_xl={break_xl}
+              break_xxl={break_xxl}
+              break_3xl={break_3xl}
+              break_4xl={break_4xl}
+          >
+            <GridContent>{children}</GridContent>
+          </ContextProviderGridBreak>
+        </ContextProviderGridGap>
+      </ContextProviderGridCols>
+
   );
 };
 

@@ -1,176 +1,80 @@
 import React from "react";
-import {
-  IGridConfigPartial,
-  IGridItemConfigPartial,
-} from "./grid.types";
 import { Grid } from "./index";
+import * as GridStories from "./grid.stories";
+import {Canvas} from "@storybook/blocks";
 
-const PreviewBlock = () => {
-  return (
-    <div
-      style={{
-        borderRadius: "4px",
-        boxShadow:
-          "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
-        backgroundColor: "#eeeeee",
-        height: "100%",
-        minHeight: "36px"
-      }}
-    />
-  );
-};
 
-export const GridNoConfigExample = () => {
+export const PreviewBlock = () => {
+
     return (
-        <Grid>
-            <Grid.Item>
-                <PreviewBlock />
-            </Grid.Item>
-            <Grid.Item>
-                <PreviewBlock />
-            </Grid.Item>
-        </Grid>
-    );
+        <div
+            style={{
+                display: "block",
+                borderRadius: "4px",
+                boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
+                backgroundColor: "#eeeeee",
+                padding: "16px",
+                width: "100%"
+            }}
+        >
+            <div
+                style={{
+                    display: "block",
+                    border: "1px solid #ffffff"
+                }}
+            >
+                1
+            </div>
+            <div
+                style={{
+                    display: "block",
+                    border: "1px solid #ffffff"
+                }}
+            >
+                2
+            </div>
+        </div>
+    )
 }
 
-export const GridBasicExample = () => {
-  const GridConfig: IGridConfigPartial = {
-    gap: {
-        initial: {
-            row: "15px",
-            column: "15px"
-        }
-    },
-    breakpoints: {
-      sm: "550px",
-      md: "880px",
-    },
-    columns: 12,
-  };
 
-  const GridItemConfig: IGridItemConfigPartial = {
-    span: {
-      initial: 6,
-      sm: 6,
-      md: 4,
-      xl: 3,
-    },
-  };
-
+export const PreviewFlex = () => {
   return (
-    <Grid config={GridConfig}>
-      <Grid.Item config={GridItemConfig}>
-        <PreviewBlock />
-      </Grid.Item>
-      <Grid.Item config={GridItemConfig}>
-        <PreviewBlock />
-      </Grid.Item>
-      <Grid.Item config={GridItemConfig}>
-        <PreviewBlock />
-      </Grid.Item>
-      <Grid.Item config={GridItemConfig}>
-        <PreviewBlock />
-      </Grid.Item>
-      <Grid.Item config={GridItemConfig}>
-        <PreviewBlock />
-      </Grid.Item>
-      <Grid.Item config={GridItemConfig}>
-        <PreviewBlock />
-      </Grid.Item>
-    </Grid>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flex: "1 1 auto",
+          flexDirection: 'row',
+          borderRadius: "4px",
+          boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
+          backgroundColor: "#eeeeee",
+          padding: "16px",
+        }}
+      >
+          <div
+              style={{
+                  display: "flex",
+                  flex: 0.5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px solid #ffffff"
+              }}
+          >
+              1
+          </div>
+          <div
+              style={{
+                  display: "flex",
+                  flex: 0.5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px solid #ffffff"
+              }}
+          >
+              2
+          </div>
+      </div>
   );
 };
 
-
-export const GridComplexExample = () => {
-    const GridConfig: IGridConfigPartial = {
-        gap: {
-            initial: {
-                row: "15px",
-                column: "15px"
-            }
-        },
-        columns: 24,
-    };
-
-    const GridItemConfigOne: IGridItemConfigPartial = {
-        span: {
-            initial: 24,
-            sm: 24,
-            md: 12,
-        },
-    };
-
-    const GridItemConfigTwo: IGridItemConfigPartial = {
-        span: {
-            initial: 24,
-            sm: 24,
-            md: 4,
-        },
-    };
-
-    const GridItemConfigThree: IGridItemConfigPartial = {
-        span: {
-            initial: 24,
-            sm: 24,
-            md: 8,
-        },
-    };
-
-    const GridItemConfigFour: IGridItemConfigPartial = {
-        span: {
-            initial: 24,
-            sm: 24,
-            md: 2,
-        },
-    };
-
-    const GridItemConfigFive: IGridItemConfigPartial = {
-        span: {
-            initial: 24,
-            sm: 24,
-            md: 18,
-        },
-    };
-
-    const GridItemConfigSix: IGridItemConfigPartial = {
-        span: {
-            initial: 24,
-            sm: 24,
-            md: 4,
-        },
-    };
-
-    return (
-        <Grid config={GridConfig}>
-            <Grid.Item config={GridItemConfigOne}>
-                <PreviewBlock />
-            </Grid.Item>
-            <Grid.Item config={GridItemConfigTwo}>
-                <PreviewBlock />
-            </Grid.Item>
-            <Grid.Item config={GridItemConfigThree}>
-                <PreviewBlock />
-            </Grid.Item>
-            <Grid.Item config={GridItemConfigFour}>
-                <PreviewBlock />
-            </Grid.Item>
-            <Grid.Item config={GridItemConfigFive}>
-                <Grid config={GridConfig}>
-                    <Grid.Item config={GridItemConfigOne}>
-                        <PreviewBlock />
-                    </Grid.Item>
-                    <Grid.Item config={GridItemConfigTwo}>
-                        <PreviewBlock />
-                    </Grid.Item>
-                    <Grid.Item config={GridItemConfigThree}>
-                        <PreviewBlock />
-                    </Grid.Item>
-                </Grid>
-            </Grid.Item>
-            <Grid.Item config={GridItemConfigSix}>
-                <PreviewBlock />
-            </Grid.Item>
-        </Grid>
-    );
-};
