@@ -4,10 +4,17 @@ import * as Stories from "./collapsable.stories";
 
 <Meta of={Stories} />
 
-# Grid
+# Collapsable
 
 <Canvas of={Stories.Default} />
 
 <Canvas of={Stories.Right} />
 
 <Canvas of={Stories.Large} />
+
+## External Control
+
+You can control the expanded state from outside the Collapsable component
+by using the `isExpanded` and `onExpandedChange` props:
+
+<Canvas of={Stories.ExternalControl} />

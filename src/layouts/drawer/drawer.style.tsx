@@ -1,19 +1,9 @@
 import styled from "styled-components";
 
-export const StyledCollapsable = styled.div<{}>`
-  display: flex;
-  height: 100%;
-  align-items: stretch;
-  box-sizing: border-box;
-    
-  * {
-    max-width: 100%;
-    box-sizing: border-box;
-  }  
-`
-
-export const StyledAside = styled.div<{
+export const StyledDrawer = styled.div<{
     $width: string;
+    $transform: string;
+    $maxWidth: string;
 }>`
     flex: 0 0 auto;
     align-self: stretch;
@@ -25,19 +15,22 @@ export const StyledAside = styled.div<{
     min-height: 0;
     width: ${(props) => props.$width};
     height: 100%;
+   
+    transition: all 0.4s ease; // Low transition since react already delays the transition to open.
+    transform: ${(props) => props.$transform};
+    max-width: ${(props) => props.$maxWidth};
+
     
-    transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1);
+    > * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 `
 
-export const StyledMain = styled.div<{}>`
-    box-sizing: border-box;
-
+export const StyledDrawerContainer = styled.div<{}>`
     // This should be added to every layout component
     min-width: 0;
     min-height: 0;
     width: 100%;
     height: 100%;
-    
-    flex-grow: 1;
-    align-self: stretch;
 `

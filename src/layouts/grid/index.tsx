@@ -8,10 +8,11 @@ import {ContextProviderGridCols} from "@/layouts/grid/context.grid.cols";
 
 export const Grid = (props: IGrid) => {
   const {
-    gap, gap_xs, gap_sm, gap_md, gap_lg, gap_xl, gap_xxl, gap_3xl, gap_4xl,
-    break_xs, break_sm, break_md, break_lg, break_xl, break_xxl, break_3xl, break_4xl,
+    gap, gapXs, gapSm, gapMd, gapLg, gapXl, gapXxl, gap3xl, gap4xl,
+    breakXs, breakSm, breakMd, breakLg, breakXl, breakXxl, break3xl, break4xl,
     cols,
-    children } = props;
+    children
+  } = props;
 
   return (
       <ContextProviderGridCols
@@ -19,24 +20,24 @@ export const Grid = (props: IGrid) => {
       >
         <ContextProviderGridGap
             gap={gap}
-            gap_xs={gap_xs}
-            gap_sm={gap_sm}
-            gap_md={gap_md}
-            gap_lg={gap_lg}
-            gap_xl={gap_xl}
-            gap_xxl={gap_xxl}
-            gap_3xl={gap_3xl}
-            gap_4xl={gap_4xl}
+            gapXs={gapXs}
+            gapSm={gapSm}
+            gapMd={gapMd}
+            gapLg={gapLg}
+            gapXl={gapXl}
+            gapXxl={gapXxl}
+            gap3xl={gap3xl}
+            gap4xl={gap4xl}
         >
           <ContextProviderGridBreak
-              break_xs={break_xs}
-              break_sm={break_sm}
-              break_md={break_md}
-              break_lg={break_lg}
-              break_xl={break_xl}
-              break_xxl={break_xxl}
-              break_3xl={break_3xl}
-              break_4xl={break_4xl}
+              breakXs={breakXs}
+              breakSm={breakSm}
+              breakMd={breakMd}
+              breakLg={breakLg}
+              breakXl={breakXl}
+              breakXxl={breakXxl}
+              break3xl={break3xl}
+              break4xl={break4xl}
           >
             <GridContent>{children}</GridContent>
           </ContextProviderGridBreak>

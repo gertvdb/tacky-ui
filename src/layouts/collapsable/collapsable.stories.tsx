@@ -1,9 +1,12 @@
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 import type { StoryObj } from "@storybook/react";
 import React from "react";
-import {Collapsable} from "@/layouts/collapsable/index";
+import {Collapsable, ContextProviderCollapsable} from "@/layouts/collapsable/index";
 import {ICollapsable} from "@/layouts/collapsable/collapsable.types";
-import {useCollapsableVisibility} from "@/layouts/collapsable/hooks/use-collapsable-visibility";
+import {useCollapsable} from "@/layouts/collapsable/hooks/use-collapsable";
+import {BoxExample} from "@/example/box";
+import {HeadingExample} from "@/example/heading";
+import {BtnExample} from "@/example/btn";
 
 export default {
     title: "Collapsable",
@@ -24,10 +27,22 @@ export const Default: Story = {
 
     render: (args: ICollapsable) =>  (
         <div style={{height: "400px"}}>
-            <Collapsable
-                aside={<Collapsable.Aside><Aside/></Collapsable.Aside>}
-                main={<Collapsable.Main><Main/></Collapsable.Main>}
-            />
+            <ContextProviderCollapsable
+                isExpanded={false}
+            >
+                <Collapsable
+                    aside={
+                        <Collapsable.Aside>
+                            <Aside/>
+                        </Collapsable.Aside>
+                    }
+                    main={
+                        <Collapsable.Main>
+                            <Main/>
+                        </Collapsable.Main>
+                    }
+                />
+            </ContextProviderCollapsable>
         </div>
     ),
 };
@@ -37,11 +52,15 @@ export const Right: Story = {
 
     render: (args: ICollapsable) =>  (
         <div style={{height: "400px"}}>
-            <Collapsable
-                position={'right'}
-                aside={<Collapsable.Aside><Aside/></Collapsable.Aside>}
-                main={<Collapsable.Main><Main/></Collapsable.Main>}
-            />
+            <ContextProviderCollapsable
+                isExpanded={false}
+            >
+                <Collapsable
+                    position={'right'}
+                    aside={<Collapsable.Aside><Aside/></Collapsable.Aside>}
+                    main={<Collapsable.Main><Main/></Collapsable.Main>}
+                />
+            </ContextProviderCollapsable>
         </div>
     ),
 };
@@ -51,69 +70,91 @@ export const Large: Story = {
 
     render: (args: ICollapsable) =>  (
         <div style={{height: "400px"}}>
-            <Collapsable
-                size_expanded={"800px"}
-                size_collapsed={"100px"}
-                position={'right'}
-                aside={<Collapsable.Aside><Aside/></Collapsable.Aside>}
-                main={<Collapsable.Main><Main/></Collapsable.Main>}
-            />
+            <ContextProviderCollapsable
+                isExpanded={false}
+            >
+                <Collapsable
+                    sizeExpanded={"800px"}
+                    sizeCollapsed={"100px"}
+                    position={'right'}
+                    aside={<Collapsable.Aside><Aside/></Collapsable.Aside>}
+                    main={<Collapsable.Main><Main/></Collapsable.Main>}
+                />
+            </ContextProviderCollapsable>
         </div>
     ),
 };
 
+export const ExternalControl: Story = {
+    name: "External Control",
+    render: (args: ICollapsable) =>  {
+        return (
+            <ContextProviderCollapsable
+                isExpanded={false}
+            >
+                <div style={{height: "400px"}}>
+                    <div
+                        style={{
+                            padding: "16px",
+                        }}
+                    >
+                        <Toggle/>
+                    </div>
+
+                    <Collapsable
+                        sizeExpanded={"225px"}
+                        sizeCollapsed={"0px"}
+                        position={'left'}
+                        aside={<Collapsable.Aside><Aside/></Collapsable.Aside>}
+                        main={<Collapsable.Main><Main/></Collapsable.Main>}
+                    />
+                </div>
+            </ContextProviderCollapsable>
+
+        );
+    },
+};
+
 export const Main = () => {
     return (
-        <div
-            style={{
-                display: "block",
-                backgroundColor: "#cccccc",
-                padding: "16px",
-                height: "100%",
-                width: "100%"
-            }}
+        <BoxExample
+            dark={true}
+            border={true}
+            shadow={false}
         >
-            <div>
+            <HeadingExample>
                 Main
-            </div>
-        </div>
+            </HeadingExample>
+            <Toggle/>
+        </BoxExample>
     )
 }
 
 export const Aside = () => {
     return (
-        <div
-            style={{
-                display: "block",
-                backgroundColor: "#eeeeee",
-                padding: "16px",
-                height: "100%",
-                width: "100%"
-            }}
+        <BoxExample
+            dark={false}
+            shadow={false}
+            border={true}
         >
-            <div>
+            <HeadingExample>
                 Aside
+            </HeadingExample>
+            <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
+                <Toggle/>
             </div>
-            <Toggle/>
-
-        </div>
+        </BoxExample>
     )
 }
 
 export const Toggle = () => {
-    const {isExpanded, setIsExpanded} = useCollapsableVisibility();
+    const {isExpanded, setIsExpanded} = useCollapsable();
 
     return (
-        <div
-            style={{
-                display: "block",
-                border: "1px solid red",
-                padding: "16px",
-            }}
-            onClick={() => {
-            setIsExpanded(!isExpanded)
-        }}>
-            Toggle
-        </div>
+        <BtnExample
+            onClick={() => setIsExpanded(!isExpanded)}
+            >
+            {isExpanded ? 'Collapse' : 'Expand'}
+        </BtnExample>
     )
 }

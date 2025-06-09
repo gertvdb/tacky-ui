@@ -1,17 +1,13 @@
-import {ReactElement} from "react";
-import {
-    IContextProviderCollapsableVisibilityPartial
-} from "@/layouts/collapsable/context.collapsable.visibility";
-import {Collapsable} from "@/layouts/collapsable/index";
+import React, {ReactElement} from "react";
 import {IContextCollapsableSizePartial} from "@/layouts/collapsable/context.collapsable.size";
+import {CollapsableAside} from "@/layouts/collapsable/components/collapsable.aside";
+import {CollapsableMain} from "@/layouts/collapsable/components/collapsable.main";
 
 export type CollapsablePosition = 'left' | 'right';
 
 export interface ICollapsable extends
-    IContextProviderCollapsableVisibilityPartial,
     IContextCollapsableSizePartial {
-        aside: ReactElement<typeof Collapsable.Aside>;
-        main: ReactElement<typeof Collapsable.Main>;
+        aside: ReactElement<React.ComponentProps<typeof CollapsableAside>>;
+        main: ReactElement<React.ComponentProps<typeof CollapsableMain>>;
         position?: CollapsablePosition;
     }
-

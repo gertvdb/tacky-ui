@@ -8,10 +8,12 @@ export const StyledGridContainer = styled.div`
   container-type: inline-size;
   container-name: grid;
 
+  // This should be added to every layout component
   min-width: 0;
   min-height: 0;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 `;
 
 export const StyledGrid = styled.div<{
@@ -21,45 +23,52 @@ export const StyledGrid = styled.div<{
 }>`
   display: grid;
   position: relative;
-
+  
+  // This should be added to every layout component
   min-width: 0;
   min-height: 0;
   width: 100%;
   height: 100%;
-  
+  box-sizing: border-box;
+
+  // Needed to make sure padding does not cause overflow.
+  * {
+    box-sizing: border-box;
+  }
+
   grid-template-columns: repeat(${(props) => props.$cols.cols}, minmax(0, 1fr));
   gap: ${(props) => props.$gaps.gap};
 
-  @container grid (min-width: ${(props) => props.$breaks.break_xs}) {
-    gap: ${(props) => props.$gaps.gap_xs};
+  @container grid (min-width: ${(props) => props.$breaks.breakXs}) {
+    gap: ${(props) => props.$gaps.gapXs};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_sm}) {
-    gap: ${(props) => props.$gaps.gap_sm};
+  @container grid (min-width: ${(props) => props.$breaks.breakSm}) {
+    gap: ${(props) => props.$gaps.gapSm};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_md}) {
-    gap: ${(props) => props.$gaps.gap_md};
+  @container grid (min-width: ${(props) => props.$breaks.breakMd}) {
+    gap: ${(props) => props.$gaps.gapMd};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_lg}) {
-    gap: ${(props) => props.$gaps.gap_lg};
+  @container grid (min-width: ${(props) => props.$breaks.breakLg}) {
+    gap: ${(props) => props.$gaps.gapLg};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_xl}) {
-    gap: ${(props) => props.$gaps.gap_xl};
+  @container grid (min-width: ${(props) => props.$breaks.breakXl}) {
+    gap: ${(props) => props.$gaps.gapXl};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_xxl}) {
-    gap: ${(props) => props.$gaps.gap_xxl};
+  @container grid (min-width: ${(props) => props.$breaks.breakXxl}) {
+    gap: ${(props) => props.$gaps.gapXxl};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_3xl}) {
-    gap: ${(props) => props.$gaps.gap_3xl};
+  @container grid (min-width: ${(props) => props.$breaks.break3xl}) {
+    gap: ${(props) => props.$gaps.gap3xl};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_4xl}) {
-    gap: ${(props) => props.$gaps.gap_4xl};
+  @container grid (min-width: ${(props) => props.$breaks.break4xl}) {
+    gap: ${(props) => props.$gaps.gap4xl};
   }
 `;
 
@@ -74,43 +83,44 @@ export const StyledGridItem = styled.div<{
   min-height: 0;
   height: 100%;
   width: 100%;
-  
+  box-sizing: border-box;
+
   grid-column: span ${(props) => props.$spans.span} / span
     ${(props) => props.$spans.span};
 
-  @container grid (min-width: ${(props) => props.$breaks.break_xs}) {
-    grid-column: span ${(props) => props.$spans.span_xs} / span
-      ${(props) => props.$spans.span_xs};
+  @container grid (min-width: ${(props) => props.$breaks.breakXs}) {
+    grid-column: span ${(props) => props.$spans.spanXs} / span
+      ${(props) => props.$spans.spanXs};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_sm}) {
-    grid-column: span ${(props) => props.$spans.span_sm} / span
-      ${(props) => props.$spans.span_sm};
+  @container grid (min-width: ${(props) => props.$breaks.breakSm}) {
+    grid-column: span ${(props) => props.$spans.spanSm} / span
+      ${(props) => props.$spans.spanSm};
   }
-  @container grid (min-width: ${(props) => props.$breaks.break_md}) {
-    grid-column: span ${(props) => props.$spans.span_md} / span
-      ${(props) => props.$spans.span_md};
+  @container grid (min-width: ${(props) => props.$breaks.breakMd}) {
+    grid-column: span ${(props) => props.$spans.spanMd} / span
+      ${(props) => props.$spans.spanMd};
   }
-  @container grid (min-width: ${(props) => props.$breaks.break_lg}) {
-    grid-column: span ${(props) => props.$spans.span_lg} / span
-      ${(props) => props.$spans.span_lg};
+  @container grid (min-width: ${(props) => props.$breaks.breakLg}) {
+    grid-column: span ${(props) => props.$spans.spanLg} / span
+      ${(props) => props.$spans.spanLg};
   }
-  @container grid (min-width: ${(props) => props.$breaks.break_xl}) {
-    grid-column: span ${(props) => props.$spans.span_xl} / span
-      ${(props) => props.$spans.span_xl};
+  @container grid (min-width: ${(props) => props.$breaks.breakXl}) {
+    grid-column: span ${(props) => props.$spans.spanXl} / span
+      ${(props) => props.$spans.spanXl};
   }
-  @container grid (min-width: ${(props) => props.$breaks.break_xxl}) {
-    grid-column: span ${(props) => props.$spans.span_xxl} / span
-      ${(props) => props.$spans.span_xxl};
-  }
-
-  @container grid (min-width: ${(props) => props.$breaks.break_3xl}) {
-    grid-column: span ${(props) => props.$spans.span_3xl} / span
-      ${(props) => props.$spans.span_3xl};
+  @container grid (min-width: ${(props) => props.$breaks.breakXxl}) {
+    grid-column: span ${(props) => props.$spans.spanXxl} / span
+      ${(props) => props.$spans.spanXxl};
   }
 
-  @container grid (min-width: ${(props) => props.$breaks.break_4xl}) {
-    grid-column: span ${(props) => props.$spans.span_4xl} / span
-      ${(props) => props.$spans.span_4xl};
+  @container grid (min-width: ${(props) => props.$breaks.break3xl}) {
+    grid-column: span ${(props) => props.$spans.span3xl} / span
+      ${(props) => props.$spans.span3xl};
+  }
+
+  @container grid (min-width: ${(props) => props.$breaks.break4xl}) {
+    grid-column: span ${(props) => props.$spans.span4xl} / span
+      ${(props) => props.$spans.span4xl};
   }
 `;

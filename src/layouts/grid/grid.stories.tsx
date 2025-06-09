@@ -1,10 +1,8 @@
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 import type { StoryObj } from "@storybook/react";
-import {
-  PreviewBlock, PreviewFlex,
-} from "./grid.example.content";
 import { Grid, IGrid } from "./index";
 import React from "react";
+import {BoxExample} from "@/example/box";
 
 export default {
   title: "Grid",
@@ -26,10 +24,14 @@ export const Default: Story = {
   render: (args: IGrid) =>  (
       <Grid>
         <Grid.Item>
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 1
+          </BoxExample>
         </Grid.Item>
         <Grid.Item>
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 2
+          </BoxExample>
         </Grid.Item>
       </Grid>
   ),
@@ -41,57 +43,69 @@ export const Basic: Story = {
   render: (args: IGrid) => (
       <Grid
           gap={"15px"}
-          break_sm={"550px"}
-          break_md={"880px"}
+          breakSm={"550px"}
+          breakMd={"880px"}
           cols={12}
       >
         <Grid.Item
             span={6}
-            span_sm={6}
-            span_md={4}
-            span_xl={3}
+            spanSm={6}
+            spanMd={4}
+            spanXl={3}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 1
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={6}
-            span_sm={6}
-            span_md={4}
-            span_xl={3}
+            spanSm={6}
+            spanMd={4}
+            spanXl={3}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 2
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={6}
-            span_sm={6}
-            span_md={4}
-            span_xl={3}
+            spanSm={6}
+            spanMd={4}
+            spanXl={3}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 3
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={6}
-            span_sm={6}
-            span_md={4}
-            span_xl={3}
+            spanSm={6}
+            spanMd={4}
+            spanXl={3}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 4
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={6}
-            span_sm={6}
-            span_md={4}
-            span_xl={3}
+            spanSm={6}
+            spanMd={4}
+            spanXl={3}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 5
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={6}
-            span_sm={6}
-            span_md={4}
-            span_xl={3}
+            spanSm={6}
+            spanMd={4}
+            spanXl={3}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 6
+          </BoxExample>
         </Grid.Item>
       </Grid>
   ),
@@ -107,36 +121,44 @@ export const Complex: Story = {
       >
         <Grid.Item
             span={24}
-            span_sm={24}
-            span_md={12}
+            spanSm={24}
+            spanMd={12}
         >
-          <PreviewFlex />
+          <BoxExample dark={true}>
+            Item 1
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={24}
-            span_sm={24}
-            span_md={4}
+            spanSm={24}
+            spanMd={4}
         >
-          <PreviewBlock />
+          <BoxExample dark={true}>
+            Item 2
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={24}
-            span_sm={24}
-            span_md={8}
+            spanSm={24}
+            spanMd={8}
         >
-          <PreviewFlex />
+          <BoxExample dark={true}>
+            Item 3
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={24}
-            span_sm={24}
-            span_md={2}
+            spanSm={24}
+            spanMd={2}
         >
-          <PreviewFlex />
+          <BoxExample dark={true}>
+            Item 4
+          </BoxExample>
         </Grid.Item>
         <Grid.Item
             span={24}
-            span_sm={24}
-            span_md={18}
+            spanSm={24}
+            spanMd={18}
         >
           <Grid
               gap={"15px"}
@@ -144,33 +166,41 @@ export const Complex: Story = {
           >
             <Grid.Item
                 span={24}
-                span_sm={24}
-                span_md={12}
+                spanSm={24}
+                spanMd={12}
             >
-              <PreviewFlex />
+              <BoxExample dark={true}>
+                Item 5
+              </BoxExample>
             </Grid.Item>
             <Grid.Item
                 span={24}
-                span_sm={24}
-                span_md={4}
+                spanSm={24}
+                spanMd={4}
             >
-              <PreviewFlex />
+              <BoxExample dark={true}>
+                Item 6
+              </BoxExample>
             </Grid.Item>
             <Grid.Item
                 span={24}
-                span_sm={24}
-                span_md={8}
+                spanSm={24}
+                spanMd={8}
             >
-              <PreviewFlex />
+              <BoxExample dark={true}>
+                Item 7
+              </BoxExample>
             </Grid.Item>
           </Grid>
         </Grid.Item>
         <Grid.Item
             span={24}
-            span_sm={24}
-            span_md={4}
+            spanSm={24}
+            spanMd={4}
         >
-          <PreviewFlex />
+          <BoxExample dark={true}>
+            Item 8
+          </BoxExample>
         </Grid.Item>
       </Grid>
   ),

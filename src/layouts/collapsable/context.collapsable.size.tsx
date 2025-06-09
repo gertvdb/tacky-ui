@@ -1,32 +1,32 @@
-import React, {createContext, PropsWithChildren, useState} from "react";
+import React, {createContext, PropsWithChildren} from "react";
 
 export interface IContextCollapsableSize {
-    size_expanded: string,
-    size_collapsed: string
+    sizeExpanded: string,
+    sizeCollapsed: string
 }
 
 export interface IContextCollapsableSizePartial {
-    size_expanded?: string,
-    size_collapsed?: string
+    sizeExpanded?: string,
+    sizeCollapsed?: string
 }
 
 export interface IContextCollapsableSizeType extends IContextCollapsableSizePartial, PropsWithChildren {}
 
 export const ContextCollapsableSizeDefault = {
-    size_expanded: '20vw',
-    size_collapsed: '5vw'
+    sizeExpanded: '20vw',
+    sizeCollapsed: '5vw'
 }
 
 export const ContextCollapsableSize  = createContext<IContextCollapsableSize>(ContextCollapsableSizeDefault);
 
 export const ContextProviderCollapsableSize  = (props: IContextCollapsableSizeType) => {
-    const { size_expanded , size_collapsed, children } = props;
+    const { sizeExpanded , sizeCollapsed, children } = props;
 
     return (
         <ContextCollapsableSize.Provider
             value={{
-                size_expanded : size_expanded ?? ContextCollapsableSizeDefault.size_expanded,
-                size_collapsed: size_collapsed ?? ContextCollapsableSizeDefault.size_collapsed
+                sizeExpanded : sizeExpanded ?? ContextCollapsableSizeDefault.sizeExpanded,
+                sizeCollapsed: sizeCollapsed ?? ContextCollapsableSizeDefault.sizeCollapsed
             }}
         >
             {children}
