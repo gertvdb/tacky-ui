@@ -5,14 +5,12 @@ import {StyledDrawer, StyledDrawerContainer} from "@/layouts/drawer/drawer.style
 import {useEffect, useState} from "react";
 import {useDrawerSize} from "@/layouts/drawer/hooks/use-drawer-size";
 import {useFocusTrap} from "@/layouts/drawer/hooks/use-focus-trap";
-import {usePortalManager} from "@/layouts/portal/hooks/use-portal-manager";
 import {useDrawerId} from "@/layouts/drawer/hooks/use-drawer-id";
 
 export const DrawerContent = (props: IDrawerContent) => {
     const {children, isOpen, onCloseRequest} = props;
 
     const ContextDrawerSize = useDrawerSize();
-    const portalManager = usePortalManager();
     const drawerId = useDrawerId();
 
     // Delay the opening of the drawer to have the visual slide in effect.
@@ -31,30 +29,13 @@ export const DrawerContent = (props: IDrawerContent) => {
 
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
-                // Get all open portals
-                const portals = portalManager.portals;
-
-                // If there are no portals or this is the only portal, close it
-                if (portals.length === 0 || portals.length === 1) {
-                    onCloseRequest();
-                    return;
-                }
-
-                // Find the top portal (the one with the highest z-index)
-                const topPortal = portals.reduce((prev, current) => 
-                    prev.zIndex > current.zIndex ? prev : current
-                );
-
-                // Only close if this drawer is the top one
-                if (topPortal.id === drawerId.id) {
-                    onCloseRequest();
-                }
+                onCloseRequest();
             }
         };
 
         document.addEventListener('keydown', onKeyDown);
         return () => document.removeEventListener('keydown', onKeyDown);
-    }, [isOpen, onCloseRequest, portalManager.portals, drawerId.id]);
+    }, [isOpen, onCloseRequest, drawerId.id]);
 
     // Use the focus trap hook to trap focus within the drawer when it's open
     const focusTrapRef = useFocusTrap(isDelayedOpen);
