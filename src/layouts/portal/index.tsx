@@ -1,18 +1,20 @@
 import {IPortal} from "@/layouts/portal/portal.types";
 import React from "react";
-import {StyledPortal} from "@/layouts/portal/portal.style";
+import {ContextProviderPortalId} from "@/layouts/portal/context.portal.id";
+import {PortalContent} from "@/layouts/portal/components/portal.content";
 
 export const Portal = (props: IPortal) => {
-    const { zIndex, children, isVisible} = props;
+    const {children, id} = props;
 
     return (
-        <StyledPortal
-            $zIndex={zIndex}
-            $pointerEvents={"auto"}
-            $display={isVisible ? 'flex' : 'none'}
+        <ContextProviderPortalId
+            id={id}
         >
-            {children}
-        </StyledPortal>
+            <PortalContent>
+                {children}
+            </PortalContent>
+        </ContextProviderPortalId>
+
     )
 }
 

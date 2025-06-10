@@ -28,7 +28,7 @@ export const Default: Story = {
 
     render: (args: ISwitch) =>  (
         <div style={{height: "400px"}}>
-            <ContextProviderSwitch>
+            <ContextProviderSwitch activeView={"B"}>
                 <Switch
                     viewA={
                         <Switch.View>

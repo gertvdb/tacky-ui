@@ -1,6 +1,5 @@
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 import type { StoryObj } from "@storybook/react";
-import {Drawer, IDrawer} from "./index";
 import React from "react";
 import {createPortal} from "react-dom";
 import {ContextProviderIsOpen} from "@/context/context.is-open";
@@ -9,10 +8,12 @@ import {BoxExample} from "@/example/box";
 import {HeadingExample} from "@/example/heading";
 import {ContextProviderPortalManager} from "@/layouts/portal/context.portal.manager";
 import {usePortalManager} from "@/layouts/portal/hooks/use-portal-manager";
+import {Modal} from "@/layouts/modal/index";
+import {IModal} from "@/layouts/modal/modal.types";
 
 export default {
-    title: "Drawer",
-    component: Drawer,
+    title: "Modal",
+    component: Modal,
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     },
@@ -22,56 +23,54 @@ export default {
     argTypes: {},
 };
 
-type Story = StoryObj<typeof Drawer>;
+type Story = StoryObj<typeof Modal>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Default: Story = {
     name: "Default",
-    render: (args: IDrawer) =>  (
-            <DrawerExample/>
+    render: (args: IModal) =>  (
+        <ModalExample/>
     ),
 };
 
-const DrawerExample = () => {
+const ModalExample = () => {
 
     const id = getRandomString();
 
     return (
         <ContextProviderPortalManager zIndex={2000}>
             <>
-                <DrawerBtn id={id}/>
-                <DrawerPortal id={id}/>
+                <ModalBtn id={id}/>
+                <ModalPortal id={id}/>
             </>
         </ContextProviderPortalManager>
     );
 }
 
-const DrawerPortal = (props: {id: string}) => {
+const ModalPortal = (props: {id: string}) => {
     const {id} = props;
 
     return createPortal(
-        <Drawer
+        <Modal
             id={id}
-            sizeExpanded={"50vw"}
-            sizeCollapsed={"0px"}
         >
             <BoxExample>
                 <HeadingExample>
-                    In the drawer - {id}
+                    In the modal - {id}
                 </HeadingExample>
                 <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
-                    <DrawerBtn id={id}/>
+                    <ModalBtn id={id}/>
                     <Form/>
                     <ContextProviderIsOpen>
-                        <DrawerExample/>
+                        <ModalExample/>
                     </ContextProviderIsOpen>
                 </div>
             </BoxExample>
-        </Drawer>,
+        </Modal>,
         document.body
     );
 }
 
-const DrawerBtn = (props: {id: string}) => {
+const ModalBtn = (props: {id: string}) => {
     const {id} = props;
 
     const ContextPortalManager = usePortalManager();
@@ -85,7 +84,7 @@ const DrawerBtn = (props: {id: string}) => {
                 }
             }}
         >
-            {ContextPortalManager.isOpen(id) ? 'Close Drawer' : 'Open Drawer'}
+            {ContextPortalManager.isOpen(id) ? 'Close Modal' : 'Open Modal'}
         </BtnExample>
     )
 }
@@ -116,8 +115,8 @@ export const Form = () => {
                 }}>
                     Name
                 </label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     placeholder="Enter your name"
                     style={{
                         width: "100%",
@@ -140,8 +139,8 @@ export const Form = () => {
                 }}>
                     Email
                 </label>
-                <input 
-                    type="email" 
+                <input
+                    type="email"
                     placeholder="Enter your email"
                     style={{
                         width: "100%",
@@ -164,7 +163,7 @@ export const Form = () => {
                 }}>
                     Message
                 </label>
-                <textarea 
+                <textarea
                     placeholder="Enter your message"
                     rows={4}
                     style={{

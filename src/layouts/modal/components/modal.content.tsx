@@ -1,21 +1,18 @@
-import {Backdrop} from "@/layouts/backdrop";
-import {IDrawerContent} from "@/layouts/drawer/drawer.types";
-import {StyledDrawer, StyledDrawerContainer} from "@/layouts/drawer/drawer.style";
-import {KeyboardEvent, useEffect, useState} from "react";
-import {useDrawerSize} from "@/layouts/drawer/hooks/use-drawer-size";
-import {useFocusTrap} from "@/layouts/drawer/hooks/use-focus-trap";
+import {IModalContent} from "@/layouts/modal/modal.types";
 import {usePortalId} from "@/layouts/portal/hooks/use-portal-id";
 import {usePortalManager} from "@/layouts/portal/hooks/use-portal-manager";
+import {KeyboardEvent, useEffect, useState} from "react";
+import {useFocusTrap} from "@/layouts/drawer/hooks/use-focus-trap";
+import {Backdrop} from "@/layouts/backdrop";
+import {StyledModal, StyledModalContainer} from "@/layouts/modal/modal.style";
 
 /**
- * DrawerContent component renders a drawer with content
+ * ModalContent component renders a modal with content
  * Uses portal system for managing visibility and focus trap for accessibility
- * @param props - Component props of type IDrawerContent
+ * @param props - Component props of type IModalContent
  */
-export const DrawerContent = (props: IDrawerContent) => {
+export const ModalContent = (props: IModalContent) => {
     const {children} = props;
-
-    const ContextDrawerSize = useDrawerSize();
 
     const ContextPortalId = usePortalId();
     const ContextPortalManager = usePortalManager();
@@ -38,7 +35,7 @@ export const DrawerContent = (props: IDrawerContent) => {
 
     /**
      * Handles keyboard events for the drawer
-     * Closes the drawer when Escape key is pressed
+     * Closes the modal when Escape key is pressed
      * @param e - Keyboard event
      */
     const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -62,7 +59,7 @@ export const DrawerContent = (props: IDrawerContent) => {
         <Backdrop
             zIndex={100}
         >
-            <StyledDrawerContainer
+            <StyledModalContainer
                 className={"drawer"}
                 onKeyDown={onKeyDown}
                 onClick={(e) => {
@@ -77,21 +74,21 @@ export const DrawerContent = (props: IDrawerContent) => {
                     ContextPortalManager.closePortal(id);
                 }}
             >
-                <StyledDrawer
+                <StyledModal
                     className={"drawer-content"}
                     ref={focusTrapRef}
                     autoFocus={true}
                     tabIndex={isDelayedOpen ? 0 : -1}
-                    $transform={isDelayedOpen ? "translateX(0)" : "translateX(-100vw)"}
+                    $transform={isDelayedOpen ? "translate(-50%, -50%)" : "translate(-50%, 100%)"}
                     $maxWidth={isDelayedOpen ? "100%" : "0"}
-                    $width={isDelayedOpen ? ContextDrawerSize.sizeExpanded : ContextDrawerSize.sizeCollapsed}
+                    $width={'800px'}
                     onClick={(e) => {
                         e.stopPropagation();
                     }}
                 >
                     { isOpen ? children : null }
-                </StyledDrawer>
-            </StyledDrawerContainer>
+                </StyledModal>
+            </StyledModalContainer>
         </Backdrop>
-    );
+    )
 }

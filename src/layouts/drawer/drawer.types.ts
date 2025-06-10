@@ -1,18 +1,10 @@
 import {PropsWithChildren} from "react";
 import {IContextDrawerSizePartial} from "@/layouts/drawer/context.drawer.size";
-import {IContextDrawerId} from "@/layouts/drawer/context.drawer.id";
+import {IContextPortalIdType} from "@/layouts/portal/context.portal.id";
 
 export interface IDrawer extends
-    IContextDrawerId,
+    IContextPortalIdType,
     IContextDrawerSizePartial,
-    IDrawerContent {
-    isOpen: boolean;
-    onCloseRequest: () => void;
-}
+    IDrawerContent {}
 
-export type DrawerElement = 'backdrop' | 'content';
-
-export interface IDrawerContent extends PropsWithChildren {
-    isOpen: boolean;
-    onCloseRequest: () => void;
-}
+export interface IDrawerContent extends PropsWithChildren {}

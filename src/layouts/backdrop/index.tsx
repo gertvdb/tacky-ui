@@ -5,11 +5,13 @@ export const Backdrop = (props: IBackdrop) => {
     const {children, zIndex} = props;
     return (
         <StyledBackdrop
+            className={`backdrop`}
             $pointerEvents={"auto"}
             $zIndex={zIndex}
             $background={"#D0D0D04D"}
         >
             <StyledBackdropContent
+                className={`backdrop-content`}
                 $zIndex={zIndex}
             >
                 {children}

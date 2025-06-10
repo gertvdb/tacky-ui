@@ -15,6 +15,7 @@ export const StyledBackdrop = styled.div<{
   z-index: ${(props) => props.$zIndex};
   background: ${(props) => props.$background};
   transition: all 225ms cubic-bezier(0.4, 0, 0.6, 1);
+  backdrop-filter: blur(1px);
 `;
 
 export const StyledBackdropContent = styled.div<{
