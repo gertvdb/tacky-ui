@@ -1,7 +1,7 @@
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 import type { StoryObj } from "@storybook/react";
 import {Drawer, IDrawer} from "./index";
-import React from "react";
+import React, {useEffect} from "react";
 import {createPortal} from "react-dom";
 import {ContextProviderIsOpen} from "@/context/context.is-open";
 import {BtnExample} from "@/example/btn";
@@ -9,6 +9,7 @@ import {BoxExample} from "@/example/box";
 import {HeadingExample} from "@/example/heading";
 import {ContextProviderPortalManager} from "@/layouts/portal/context.portal.manager";
 import {usePortalManager} from "@/layouts/portal/hooks/use-portal-manager";
+import {usePortalMountOpen} from "@/layouts/portal/hooks/use-portal-mount-open";
 
 export default {
     title: "Drawer",
@@ -27,21 +28,22 @@ type Story = StoryObj<typeof Drawer>;
 export const Default: Story = {
     name: "Default",
     render: (args: IDrawer) =>  (
-            <DrawerExample/>
+        <div style={{height: "2000px"}}>
+            <ContextProviderPortalManager zIndex={2000}>
+                <DrawerExample/>
+            </ContextProviderPortalManager>
+        </div>
     ),
 };
 
 const DrawerExample = () => {
-
     const id = getRandomString();
 
     return (
-        <ContextProviderPortalManager zIndex={2000}>
-            <>
-                <DrawerBtn id={id}/>
-                <DrawerPortal id={id}/>
-            </>
-        </ContextProviderPortalManager>
+        <>
+            <DrawerBtn id={id}/>
+            <DrawerPortal id={id}/>
+        </>
     );
 }
 
@@ -61,9 +63,6 @@ const DrawerPortal = (props: {id: string}) => {
                 <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
                     <DrawerBtn id={id}/>
                     <Form/>
-                    <ContextProviderIsOpen>
-                        <DrawerExample/>
-                    </ContextProviderIsOpen>
                 </div>
             </BoxExample>
         </Drawer>,
@@ -75,6 +74,8 @@ const DrawerBtn = (props: {id: string}) => {
     const {id} = props;
 
     const ContextPortalManager = usePortalManager();
+    usePortalMountOpen([id]);
+
     return (
         <BtnExample
             onClick={() => {
@@ -140,8 +141,8 @@ export const Form = () => {
                 }}>
                     Email
                 </label>
-                <input 
-                    type="email" 
+                <input
+                    type="email"
                     placeholder="Enter your email"
                     style={{
                         width: "100%",

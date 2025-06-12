@@ -28,7 +28,9 @@ type Story = StoryObj<typeof Modal>;
 export const Default: Story = {
     name: "Default",
     render: (args: IModal) =>  (
-        <ModalExample/>
+        <ContextProviderPortalManager zIndex={2000}>
+            <ModalExample/>
+        </ContextProviderPortalManager>
     ),
 };
 
@@ -37,12 +39,10 @@ const ModalExample = () => {
     const id = getRandomString();
 
     return (
-        <ContextProviderPortalManager zIndex={2000}>
-            <>
-                <ModalBtn id={id}/>
-                <ModalPortal id={id}/>
-            </>
-        </ContextProviderPortalManager>
+        <>
+            <ModalBtn id={id}/>
+            <ModalPortal id={id}/>
+        </>
     );
 }
 
@@ -53,7 +53,7 @@ const ModalPortal = (props: {id: string}) => {
         <Modal
             id={id}
         >
-            <BoxExample>
+            <div>
                 <HeadingExample>
                     In the modal - {id}
                 </HeadingExample>
@@ -64,7 +64,7 @@ const ModalPortal = (props: {id: string}) => {
                         <ModalExample/>
                     </ContextProviderIsOpen>
                 </div>
-            </BoxExample>
+            </div>
         </Modal>,
         document.body
     );

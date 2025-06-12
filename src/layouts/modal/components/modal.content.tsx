@@ -80,7 +80,6 @@ export const ModalContent = (props: IModalContent) => {
                     autoFocus={true}
                     tabIndex={isDelayedOpen ? 0 : -1}
                     $transform={isDelayedOpen ? "translate(-50%, -50%)" : "translate(-50%, 100%)"}
-                    $maxWidth={isDelayedOpen ? "100%" : "0"}
                     $width={'800px'}
                     onClick={(e) => {
                         e.stopPropagation();

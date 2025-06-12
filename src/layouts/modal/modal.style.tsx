@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledModal = styled.div<{
     $width: string;
     $transform: string;
-    $maxWidth: string;
 }>`
     flex: 0 0 auto;
     align-self: stretch;
@@ -13,14 +12,10 @@ export const StyledModal = styled.div<{
     // This should be added to every layout component
     min-width: 0;
     min-height: 0;
-    //width: ${(props) => props.$width};
-    //height: 100%;
    
     transition: all 0.4s ease; // Low transition since react already delays the transition to open.
     transform: ${(props) => props.$transform};
-    //max-width: ${(props) => props.$maxWidth};
 
-    border: 2px solid green;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -42,6 +37,4 @@ export const StyledModalContainer = styled.div<{}>`
     width: 100%;
     height: 100%;
     position: relative;
-    
-    border: 2px solid red;
 `

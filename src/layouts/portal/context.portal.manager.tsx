@@ -1,4 +1,4 @@
-import React, {createContext, PropsWithChildren, useState} from "react";
+import React, {createContext, PropsWithChildren, useEffect, useState} from "react";
 
 /**
  * Interface for the Portal Manager context
@@ -6,7 +6,7 @@ import React, {createContext, PropsWithChildren, useState} from "react";
  */
 export interface IContextPortalManager {
     /** Record of open portals with their IDs */
-    portals: Record<string, string>
+    portals: string[]
     /** Opens a portal with the specified ID */
     openPortal: (id: string) => void,
     /** Closes a portal with the specified ID */
@@ -28,7 +28,7 @@ export interface IContextProviderPortalManagerType extends PropsWithChildren {
  * Context for managing portals
  */
 export const ContextPortalManager = createContext<IContextPortalManager>({
-    portals: {},
+    portals: [],
     openPortal: (id: string) => {
         console.warn("openPortal called without a provider");
     },
@@ -48,16 +48,18 @@ export const ContextPortalManager = createContext<IContextPortalManager>({
  */
 export const ContextProviderPortalManager = (props: IContextProviderPortalManagerType) => {
     const {children} = props;
-    const [portals, setPortals] = useState<Record<string, string>>({});
+    const [portals, setPortals] = useState<string[]>([]);
 
     /**
      * Opens a portal with the specified ID
      * @param id - The ID of the portal to open
      */
     const openPortal = (id: string) => {
-        const updatedPortals = { ...portals };
-        updatedPortals[id] = id;
-        setPortals(updatedPortals);
+        console.log('openPortal');
+        console.log('current', portals);
+        setPortals(prevPortals => (
+            prevPortals.includes(id) ? prevPortals : [...prevPortals, id]
+        ));
     }
 
     /**
@@ -65,13 +67,11 @@ export const ContextProviderPortalManager = (props: IContextProviderPortalManage
      * @param id - The ID of the portal to close
      */
     const closePortal = (id: string) => {
-        const item = portals[id] ?? null;
-
-        if (item) {
-            const updatedPortals = { ...portals };
-            delete updatedPortals[id];
-            setPortals(updatedPortals);
-        }
+        console.log('closePortal');
+        console.log('current', portals);
+        setPortals(prevPortals => {
+            return prevPortals.filter(item => item !== id);
+        });
     }
 
     /**
@@ -80,8 +80,7 @@ export const ContextProviderPortalManager = (props: IContextProviderPortalManage
      * @returns True if the portal is open, false otherwise
      */
     const isOpen = (id: string) => {
-        const item = portals[id] ?? null;
-        return !!item;
+        return portals.includes(id);
     }
 
     /**
@@ -90,12 +89,8 @@ export const ContextProviderPortalManager = (props: IContextProviderPortalManage
      * @returns True if the portal is the topmost, false otherwise
      */
     const isTop = (id: string) => {
-        const keys = Object.keys(portals);
-        if (keys.length === 0) {
-            return false;
-        }
-        const lastKey = keys[keys.length - 1];
-        return id === lastKey;
+        const last = portals.pop();
+        return id === last;
     }
 
     const value = {
@@ -105,6 +100,16 @@ export const ContextProviderPortalManager = (props: IContextProviderPortalManage
         isOpen,
         isTop
     };
+
+    useEffect(() => {
+        console.log('useEffect');
+        console.log('current', portals);
+        if (portals.length > 0) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "visible";
+        }
+    }, [portals]);
 
     return (
         <ContextPortalManager.Provider
